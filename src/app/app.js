@@ -2,23 +2,62 @@ import { reactive, computed } from 'vue'
 
 export default {
     setup() {
-        const state = reactive({
-            count: 0,
-            double: computed(() => state.count * 2)
-        })
+        const { increment, incrementState } = useCounterIncrement();
+        const { changeColor, colorState } = useColorChange();
 
-        function increment() {
-            state.count++
+        function clickHandle() {
+            changeColor();
+            increment();
         }
 
         return {
-            state,
-            increment
+            incrementState,
+            colorState,
+            clickHandle
         }
     },
     template: `
-        <button @click="increment">
-            Count is: {{ state.count }}, double is: {{ state.double }}
+        <button @click="clickHandle" :style="{ backgroundColor: colorState.color, transition: 'background-color, .5s' }">
+            Count is: {{ incrementState.count }}
         </button>
     `
+}
+
+function useCounterIncrement() {
+    const incrementState = reactive({
+        count: 0
+    });
+
+    function increment() {
+        incrementState.count++
+    }
+
+    return {
+        incrementState,
+        increment
+    }
+}
+
+function useColorChange() {
+    let colorState = reactive({
+        color: '#ffffff'
+    });
+
+    function changeColor() {
+        colorState.color = getRandomColor();
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+    return {
+        changeColor,
+        colorState
+    }
 }
