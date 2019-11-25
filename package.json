@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.js",
     "build": "node node_modules/webpack/bin/webpack --config webpack.config.js",
-    "watch": "node node_modules/webpack/bin/webpack --watch --config webpack.config.js",
-    "dev-server": "node node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.js"
+    "watch": "node node_modules/webpack/bin/webpack --watch --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
